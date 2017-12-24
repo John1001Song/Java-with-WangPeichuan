@@ -1,0 +1,27 @@
+{
+  "q": "San Francisco",
+  "rid": "d7f1291d-331b-4a07-a456-f2852035f9c5",
+  "rc": "OK",
+  "sr": [
+    {
+      "@type": "hotelResult",
+      "i": "47",
+      "f": "Hilton Garden Inn San Francisco/Oakland Bay Bridge",
+      "d": "Hilton Garden Inn <B>San</B> <B>Francisco</B>/Oakland Bay Bridge",
+      "id": "10323",
+      "t": "HOTEL",
+      "ll": {
+        "lat": "37.837773",
+        "lng": "-122.298142"
+      },
+      "a": "QSF",
+      "amc": "178305",
+      "ad": "1800 Powell Street",
+      "ci": "Emeryville",
+      "pr": "CA",
+      "c": "USA",
+      "cc": "US",
+      "ccc": "USA"
+    }
+  ]
+}

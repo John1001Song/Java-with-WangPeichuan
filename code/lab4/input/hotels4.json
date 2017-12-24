@@ -1,0 +1,87 @@
+{
+  "q": "San Francisco",
+  "rid": "d7f1291d-331b-4a07-a456-f2852035f9c5",
+  "rc": "OK",
+  "sr": [
+    {
+      "@type": "hotelResult",
+      "i": "0",
+      "f": "Parc 55 San Francisco - A Hilton Hotel",
+      "d": "Parc 55 <B>San</B> <B>Francisco</B> - A Hilton Hotel",
+      "id": "12539",
+      "t": "HOTEL",
+      "ll": {
+        "lat": "37.784580",
+        "lng": "-122.408540"
+      },
+      "a": "QSF",
+      "amc": "178305",
+      "ad": "55 Cyril Magnin St",
+      "ci": "San Francisco",
+      "pr": "CA",
+      "c": "USA",
+      "cc": "US",
+      "ccc": "USA"
+    },
+    {
+      "@type": "hotelResult",
+      "i": "3",
+      "f": "Travelodge San Francisco Airport-North",
+      "d": "Travelodge <B>San</B> <B>Francisco</B> Airport-North",
+      "id": "16955",
+      "t": "HOTEL",
+      "ll": {
+        "lat": "37.645129",
+        "lng": "-122.404920"
+      },
+      "a": "QSF",
+      "amc": "178305",
+      "ad": "326 S Airport Blvd",
+      "ci": "South San Francisco",
+      "pr": "CA",
+      "c": "USA",
+      "cc": "US",
+      "ccc": "USA"
+    },
+    {
+      "@type": "hotelResult",
+      "i": "8",
+      "f": "Holiday Inn San Francisco-Fisherman's Wharf",
+      "d": "Holiday Inn <B>San</B> <B>Francisco</B>-Fisherman's Wharf",
+      "id": "1047",
+      "t": "HOTEL",
+      "ll": {
+        "lat": "37.806030",
+        "lng": "-122.418440"
+      },
+      "a": "QSF",
+      "amc": "178305",
+      "ad": "1300 Columbus Ave",
+      "ci": "San Francisco",
+      "pr": "CA",
+      "c": "USA",
+      "cc": "US",
+      "ccc": "USA"
+    },
+    {
+      "@type": "hotelResult",
+      "i": "47",
+      "f": "Hilton Garden Inn San Francisco/Oakland Bay Bridge",
+      "d": "Hilton Garden Inn <B>San</B> <B>Francisco</B>/Oakland Bay Bridge",
+      "id": "10323",
+      "t": "HOTEL",
+      "ll": {
+        "lat": "37.837773",
+        "lng": "-122.298142"
+      },
+      "a": "QSF",
+      "amc": "178305",
+      "ad": "1800 Powell Street",
+      "ci": "Emeryville",
+      "pr": "CA",
+      "c": "USA",
+      "cc": "US",
+      "ccc": "USA"
+    }
+  ]
+}

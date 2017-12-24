@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="jsAndCss/logout.js"></script>
+    <!--<script src="/jsAndCss/saveHotel.js"></script>-->
+    <style>
+        .side-content {
+                height: 100%; /* 100% Full-height */
+                width: 15%; /* 0 width - change this with JavaScript */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Stay on top */
+                top: 0; /* Stay at the top */
+                left: 0;
+                background-color: #3cb371; /* Green*/
+                overflow-x: hidden; /* Disable horizontal scroll */
+                padding-top: 60px; /* Place content 60px from the top */
+                padding-left: 20px;
+                transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+        .col-sm-4 {
+                left: 10%; /* Keep a distance with the side bar */
+        }
+
+        .log out button {
+            position:relative;
+            top:0;
+            right:0;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="jumbotron text-center">
+    <h1>MyTravelAdvisor</h1>
+    #if( $userName != "anonymous" )
+    <h5>Hello, $userName! </h5>
+    #if( $visitedDate != "")
+    <h5>Last time login: $visitedDate</h5>
+    #end
+    <p><a href="/reviewManage?userName=$userName">Manage My Reviews</a></p>
+
+    <div>
+        <form action="/logout">
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+<br><br>
+    <div>
+        <select name="cityFilter" onchange="filterCity(this.value)">
+            <option value="">Select a city:</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="Emeryville">Emeryville</option>
+            <option value="Burlingame">Burlingame</option>
+            <option value="South San Francisco">South San Francisco</option>
+            <option value="Mill Valley">Mill Valley</option>
+            <option value="San Mateo">San Mateo</option>
+            <option value="Oakland">Oakland</option>
+            <option value="Millbrae">Millbrae</option>
+            <option value="South Lake Tahoe">South Lake Tahoe</option>
+            <option value="San Carlos">San Carlos</option>
+            <option value="San Rafael">San Rafael</option>
+            <option value="Larkspur">Larkspur</option>
+            <option value="San Bruno">San Bruno</option>
+            <option value="Belmont">Belmont</option>
+            <option value="San Leandro">San Leandro</option>
+            <option value="Redwood City">Redwood City</option>
+            <option value="Brisbane">Brisbane</option>
+            <option value="Novato">Novato</option>
+            <option value="Richmond">Richmond</option>
+            <option value="Corte Madera">Corte Madera</option>
+            <option value="Pacifica">Pacifica</option>
+        </select>
+        <input type="text" id="searchHotels" onkeyup="searchHotels()" placeholder="Search for hotels.." title="Type in a name">
+
+    </div>
+    <!--<div class="a">-->
+        <!--<button type="button" onclick="loadDoc()">Change Content</button>-->
+        <!--<p id="demo">Let AJAX change this text.</p>-->
+    <!--</div>-->
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3> Hotels in list: </h3>
+            <ul id="hotelsList">
+            #foreach( $hotel in $hotelsMap )
+            <p>
+                <li><a href="/reviewInOneHotel?hotelId=$hotel.hotelId&hotelName=$hotel.hotelName&userName=$userName">
+                hotelId: $hotel.hotelId<br>
+                hotelName: $hotel.hotelName<br>
+                Street: $hotel.hotelStreet<br>
+                City: $hotel.hotelCity<br>
+                State: $hotel.hotelState<br>
+                avg Rating: $hotel.avgRating<br></a>
+
+                <a href="$hotel.link">$hotel.link</a><br>
+                <input class="btn btn-info" type="button" value="Save" onclick="saveHotel('$userName','$hotel.hotelId')">
+                <!--$userName, $hotel.hotelId-->
+                </li>
+            </p>
+            #end
+            </ul>
+        </div>
+        #else
+            <h5>Hello, annonymous</h5>
+        #end
+        <div class="side-content">
+            <h3>
+                Saved Hotels <input class="btn btn-info" type="button" value="Clear" onclick="clearSavedHotel('$userName')">
+            </h3>
+            <div>
+                <p id="savedHotels"></p>
+            </div>
+            #foreach( $hotel in $savedHotels)
+            <p>$hotel</p> <br>
+            #end
+        </div>
+
+    </div>
+</div>
+<script>
+function saveHotel(userName, hotelId) {
+
+    var xhttp = new XMLHttpRequest();
+    <!--alert("hotel saved");-->
+    <!--alert(hotelId);-->
+    if (userName == "" || hotelId == "") {
+        document.getElementById("savedHotels").innerHTML = "The userName or hotelId is empty.";
+    }
+    if (userName == "anonymous") {
+        alert("Please login first");
+        return;
+    }
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("savedHotels").innerHTML = this.responseText;
+            alert("hotel saved");
+        }
+    };
+
+    xhttp.open("POST", "hotelSave?userName=" + userName + "&hotelId=" + hotelId, true);
+    xhttp.send();
+
+}
+
+function clearSavedHotel(userName) {
+    var xhttp = new XMLHttpRequest();
+
+    if (userName == "") {
+        alert("userName not found; clear fails");
+    }
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("savedHotels").innerHTML = "";
+            alert("clear successfully");
+        }
+    };
+
+    xhttp.open("POST", "hotelClear?userName=" + userName);
+    xhttp.send();
+
+}
+
+function searchHotels() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("searchHotels");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("hotelsList");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+
+function filterCity(cityName) {
+    <!--alert("in");-->
+    var input, filter, ul, li, a, i;
+    input = "City: " + cityName;
+    <!--alert(input);-->
+    filter = input.toUpperCase();
+    <!--alert(filter);-->
+    ul = document.getElementById("hotelsList");
+    <!--alert(ul);-->
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+
+
+}
+
+
+</script>
+</body>
+</html>

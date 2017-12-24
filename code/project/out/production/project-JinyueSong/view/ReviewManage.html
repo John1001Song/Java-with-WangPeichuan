@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reivew Management</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+    <h1>My Reviews</h1>
+    <a href="/welcome"><input class="btn btn-info" type="button" value="Back to Welcome Page"></a>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3> My Reviews: </h3>
+            #foreach( $review in $myReviews )
+            <p>
+                <table>
+                    <tr>Review Id:</tr><br>
+                    <tr>$review.reviewId</tr><br>
+                    <tr>Hotel Id:</tr><br>
+                    <tr>$review.hotelId</tr><br>
+                    <tr>Title:</tr><br>
+                    <tr>$review.title</tr><br>
+                    <tr>Content:</tr><br>
+                    <tr>$review.content</tr><br>
+                    <tr>Avg Rating:</tr><br>
+                    <tr>$review.avgRating</tr><br>
+                    <tr>is Recomd?</tr><br>
+                    <tr>$review.isRecomd</tr>
+                </table><br>
+            <a href="/reviewEdit?reviewId=$review.reviewId&userName=$review.userName&hotelId=$review.hotelId" ><button type="button">Edit</button></a>
+            <button type="button" onclick="deleteReview('$review.reviewId')">Delete</button>
+
+            <!--<form action="/reviewDelete?reviewId=$reviewId" method="post">-->
+                <!--<input type="submit" value="Delete" style="width:20%">-->
+            <!--</form>-->
+            </p>
+            #end
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteReview(reviewId) {
+        <!--alert(reviewId);-->
+        var xhttp = new XMLHttpRequest();
+
+        if (reviewId == "") {
+            alert("error happens, delete fails");
+            return;
+        }
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var deleteStatus = this.responseText;
+                alert("delete status: " + deleteStatus);
+                location.reload();
+            }
+        };
+
+        xhttp.open("POST", "reviewDelete?reviewId=" + reviewId, true);
+        xhttp.send();
+
+    }
+</script>
+</body>
+</html>

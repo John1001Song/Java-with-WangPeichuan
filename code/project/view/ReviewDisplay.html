@@ -1,0 +1,109 @@
+<!-- ReviewDisplay.html display all reviews of one hotel. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reivews</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="jsAndCss/getHotelName.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+    #if( $hotelId != "" )
+    <h2>$hotelName</h2>
+    #end
+    <p><a href="/reviewNewSubmit?hotelId=$hotelId&hotelName=$hotelName&userName=$userName">Submit New Review</a></p>
+    <a href="/welcome"><input class="btn btn-info" type="button" value="Back to Welcome Page"></a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3> Hotel Reviews:
+                    <input class="btn btn-info" type="button" value="Sort by Rating" onclick="sortByRating('$hotelId', '$hotelName', '$userName')">
+            </h3>
+            <div id="reviewsContent">
+            #foreach( $review in $reviewsMap)
+            <!--// reviews (reviewId, hotelId, userName, title, content, rating, isRecomd)-->
+            <p>
+                reviewId: $review.reviewId<br>
+                hotelId: $review.hotelId<br>
+                userName: $review.userName<br>
+                title: $review.title<br>
+                content: $review.content<br>
+                rating: $review.rating<br>
+                isRecomd: $review.isRecomd<br>
+                <div id="$review.reviewId"></div>
+                <input class="btn btn-info" type="button" value="Like" onclick="likeReviews('$userName', '$review.reviewId')">
+            </p>
+            #end
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <h3>Tourist Attractions near $hotelName:</h3>
+            <input type="text" id="touristAttractionsSearch" placeholder="Search within a radius" title="Search">
+            <input class="btn btn-info" type="button" onclick="searchTouristAttractions($hotelId)" value="Search">
+            <div id="touristAttractionContent">Tourist Attractions Search Result</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function likeReviews(userName, reviewId) {
+        alert(userName + ", " + reviewId);
+        var xhttp = new XMLHttpRequest();
+
+        if (userName == "") {
+            alert("Please login first.");
+            return;
+        }
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(this.responseText);
+                document.getElementById(reviewId).innerHTML = this.responseText + " users found this Review helpful";
+            }
+        };
+
+        xhttp.open("POST", "reviewLike?userName=" + userName + "&reviewId=" + reviewId, true);
+        xhttp.send();
+    }
+
+    function sortByRating(hotelId, hotelName, userName) {
+        alert("hotelId: " + hotelId + ", hotelName: " + hotelName + ", userName: " + userName);
+
+        window.location.replace("/reviewSortedInOneHotel?hotelId=" + hotelId + "&hotelName=" + hotelName + "&userName=" + userName);
+    }
+
+    function searchTouristAttractions(hotelId) {
+        alert(hotelId);
+        var xhttp = new XMLHttpRequest();
+
+        var radius = document.getElementById("touristAttractionsSearch").value;
+        alert(radius);
+
+        if (hotelId == "") {
+            alert("Hotel not found.");
+            return;
+        }
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("status ok");
+                <!--document.getElementById(touristAttractionContent).innerHTML = this.responseText;-->
+                <!--alert(this.responseText);-->
+                document.getElementById("touristAttractionContent").innerHTML = this.responseText;
+            }
+        };
+
+        xhttp.open("GET", "touristAttractionSearch?hotelId=" + hotelId + "&radius=" + radius, true);
+        xhttp.send();
+    }
+</script>
+</body>
+</html>

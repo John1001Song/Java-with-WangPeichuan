@@ -1,0 +1,22 @@
+Circle: 4.0
+Circle: 2.5
+Circle: 1.0
+ConvexRegularPolygon: 5 1.0
+ConvexRegularPolygon: 3 3.0
+ConvexRegularPolygon: 7 2.0
+Sphere: 5.0
+Sphere: 1.5
+Sphere: 4.0
+PlatonicSolid: 4 3 1.0
+PlatonicSolid: 3 3 1.0
+PlatonicSolid: 3 4 1.0
+PlatonicSolid: 5 3 1.0
+PlatonicSolid: 3 5 1.0
+PlatonicSolid: 4 3 2.0
+PlatonicSolid: 3 3 1.5
+PlatonicSolid: 3 4 5.0
+PlatonicSolid: 5 3 4.0
+PlatonicSolid: 3 5 2.5
+
+
+

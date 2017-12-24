@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reivew Edit</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="jsAndCss/reviewEditSubmit.js"></script>
+
+</head>
+<body>
+
+<div class="jumbotron text-center">
+    <h1>Edit Review</h1>
+    <a href="/welcome"><input class="btn btn-info" type="button" value="Back to Welcome Page"></a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3> My Reviews: </h3>
+
+            <!-- reviews (reviewId, hotelId, userName, title, content, rating, isRecomd) -->
+            <form id="editedReview" name="editedReview" action="/reviewEdit" method="post">
+            <table style="width:100%">
+                <tr>
+                    <td>ReviewId: </td>
+                    #if( $reviewId != "" )
+                    <td><input type="text" name="reviewId" value="$reviewId" readonly size="30"><br></td>
+                    #end
+                </tr>
+            <tr>
+                <td>HotelId: </td>
+                #if( $hotelId != "" )
+                <td><input type="text" name="hotelId" value="$hotelId" readonly size="30"><br></td>
+                #end
+            </tr>
+                <tr>
+                <td>Usename: </td>
+                #if( $userName != "" )
+                    <td><input type="text" name="userName" value="$userName" readonly size="30"><br></td>
+                #end
+                </tr>
+            <tr>
+                <td>Title:</td>
+                <td><input type="text" name="title" value="title" size="30"></td>
+            </tr>
+
+            <tr>
+                <td>Content:</td>
+                <td><textarea rows="4" cols="50" name="content"> content </textarea></td>
+            </tr>
+
+            <tr>
+                <td>Rating:</td>
+                <td><input type="radio" name="rating" value="1">1
+                    <input type="radio" name="rating" value="2">2
+                    <input type="radio" name="rating" value="3">3
+                    <input type="radio" name="rating" value="4">4
+                    <input type="radio" name="rating" value="5" checked="checked">5
+                </td>
+            </tr>
+
+            <tr>
+                <td>isRecomd:</td>
+                <td><input type="radio" name="isRecomd" value="true">true
+                    <input type="radio" name="isRecomd" value="false">false</td>
+            </tr>
+
+            </table>
+                <input type="submit" onclick="myFunction()" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
